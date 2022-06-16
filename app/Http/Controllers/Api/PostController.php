@@ -14,8 +14,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts= Post::all();
-        return response()->json(compact('posts'));
+        $posts = Post::orderBy('updated_at', 'DESC')->with('Category','tags' )->paginate(3);
+        return response()->json( compact('posts') );
     }
 
     /**
@@ -47,7 +47,8 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
+        $post= Post::with('Category','tags' )->find($id);
+        return response()->json( $post);
     }
 
     /**
