@@ -26,9 +26,7 @@
 
 </script>
 
-<style scoped>
-    .text-danger {
-        color: red;
-    }
+<style>
+   
 
 </style>

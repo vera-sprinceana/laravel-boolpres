@@ -1,28 +1,25 @@
 <template>
-    <div>
+    <div class=" bg-page p-5 mt-5">
         <Loader v-if="isLoading" />
         <div class="container">
             <!-- passiamo i dati dal padre al figlio -->
-            <Pagination :pagination="pagination" />
+            
             <div v-if="posts.length">
-                <div class="card text-center" v-for="post in posts" :key="post.id">
-                    <div class="card-header">
+               <Pagination :pagination="pagination" @on-page-change="getPosts"/> 
+                <div class="card text-center mb-3" v-for="post in posts" :key="post.id">
+                    <div class="card-header text-uppercase font-weight-bold bg-title">
                         {{ post.title }} - Category: {{ post.category.label }}
-
                     </div>
-                    <div class="card-header">
-                        {{ post.title }}
-                    </div>
-                    <div class="card-body">
+                    <div class="card-body bg-body">
                         <p class="card-title">
                             <span v-for=" tag in post.tags " :key="tag.id" class="badge"
                                 :style="`background-color: ${tag.color}`">{{ tag.label }}</span>
                         </p>
                         <p class="card-text">{{ post.content }}</p>
-                        <router-link :to="{name: 'post-detail', params: {id: post.id}}" class="btn btn-primary">View</router-link>
+                        <router-link :to="{name: 'post-detail', params: {slug: post.slug } }" class="btn btn-info">View</router-link>
                     </div>
-                    <div class="card-footer text-muted">
-                        2 days ago
+                    <div class="card-footer text-muted bg-footer">
+                        <h6>{{post.created_at}}</h6>
                     </div>
                 </div>
             </div>
@@ -51,8 +48,8 @@
             }
         },
         methods: {
-            getPosts() {
-                axios.get("http://127.0.0.1:8000/api/posts")
+            getPosts(page = 1) {
+                axios.get("http://127.0.0.1:8000/api/posts?page=" + page)
                     .then((res) => {
                         //console.log( res.data.posts.data );
 
@@ -86,3 +83,17 @@
     }
 
 </script>
+<style scoped lang="scss">
+.bg-page{
+    background-color: rgb(239, 231, 221);
+}
+.bg-title{
+    background-color: #cce7e8;
+}
+.bg-body{
+    background-color: rgb(241, 255, 255);
+}
+.bg-footer{
+    background-color:#95d4e2;
+}
+</style>

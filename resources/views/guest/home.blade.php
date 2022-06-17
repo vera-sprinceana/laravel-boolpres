@@ -13,7 +13,11 @@
     <!-- Styles -->
    <link rel="stylesheet" href="{{asset('css/app.css')}} ">
 </head>
-
+<style>
+    body{
+        background-color: rgb(253, 249, 249);
+    }
+</style>
 <body>
     <div class="flex-center position-ref full-height">
 
@@ -25,9 +29,9 @@
             <a href="{{route('admin.categories.index')}}">Category</a>
             <a href="{{route('admin.posts.create')}}" class="btn btn-outline-info">Crea nuovo post +</a> --}}
             @else
-            <a href="{{ route('login') }}">Login</a>
+            <a href="{{ route('login') }}"></a>
             @if (Route::has('register'))
-            <a href="{{ route('register') }}">Register</a>
+            <a href="{{ route('register') }}"></a>
             @endif
             @endauth
         </div>
